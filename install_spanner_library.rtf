@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww22320\viewh11560\viewkind0
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Install php7\
+\'97\'97\'97\'97\'97\'97\
+sudo apt-get install php7.0-dev php-pear phpunit\
+\
+install composer\
+\'97\'97\'97\'97\'97\'97\'97\
+curl -sS https://getcomposer.org/installer | php\
+sudo mv composer.phar /usr/local/bin/composer\
+\
+Install gRPC extension\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 sudo apt-get install zlib1g-dev \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+\cf0 sudo pecl install grpc\
+ Note: should fail because it does not have the zlib library\
+  so install  install zlib1g-dev then try the pecl install grpc\
+\
+Enable php extension jn php.ini file\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+sudo vim /etc/php/7.0/cli/php.ini\
+paste 'extension=grpc.so"  in the above file\
+\
+\
+Install spanner library\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97 \
+ 1) apt-get install git\
+ 2)composer require google/cloud-spanner\
+    Note:  will fail install if you don\'92t have git\
+\
+\
+Ref: https://cloud.google.com/spanner/docs/reference/libraries#installing_the_client_library\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

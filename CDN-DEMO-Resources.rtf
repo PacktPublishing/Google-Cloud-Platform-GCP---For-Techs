@@ -1,0 +1,82 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1504\cocoasubrtf830
+{\fonttbl\f0\froman\fcharset0 Times-Roman;\f1\fmodern\fcharset0 CourierNewPSMT;\f2\fmodern\fcharset0 Courier;
+\f3\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;\red0\green0\blue0;\red249\green249\blue249;\red0\green0\blue0;
+\red249\green249\blue249;\red255\green255\blue255;\red26\green26\blue26;\red0\green0\blue0;}
+{\*\expandedcolortbl;;\cssrgb\c0\c0\c0\c87059;\cssrgb\c98039\c98039\c98039;\cssrgb\c0\c0\c0\c87059;
+\cssrgb\c98039\c98039\c98039;\cssrgb\c100000\c100000\c100000;\cssrgb\c13333\c13333\c13333;\cssrgb\c0\c0\c0;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww15320\viewh15480\viewkind0
+\deftab720
+\pard\pardeftab720\sl280\partightenfactor0
+
+\f0\fs24 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Startup script for CDN Demo:\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+\
+#! /bin/bash\
+apt-get update -y\
+apt-get install apache2 -y\
+cd /var/www/html\
+wget http://cdn.litlepups.net/2015/09/30/cute-puppies-wallpaper-download-hd-wallpapers.jpg -O dogs2.jpg\
+wget http://cdn.litlepups.net/2017/11/05/christmas-cat-images-funny-christmas-cat-graphics-best-christmas-cat.jpg -O cats1.jpg\
+wget http://cdn.litlepups.net/2015/07/23/kittens-and-puppies-images.jpg -O dogs3.jpg\
+wget http://cdn.litlepups.net/2015/08/14/free-dogs-and-cats-hd-dogs-and-cats-wallpaper-funny-pictures.jpg -O dogs1.jpg\
+wget http://cdn.litlepups.net/2015/09/30/dog-and-cat-together-cute-posted-by-shea-vermillion-at.PNG  -O dogs2.png\
+mv /var/www/html/index.html /var/www/html/index.php\
+cat <<EOF > /var/www/html/index.php\
+ <html>\
+ <body> Hello world!! <br></br>\
+<img src="dogs1.jpg" height="200" width="300">\
+<img src="dogs2.jpg" height="200" width="300">\
+<img src="dogs3.jpg" height="200" width="300">\
+<img src="dogs2.png" height="200" width="300">\
+<img src="cats1.jpg" height="200" width="300">\
+<img src="dogs1.jpg" height="200" width="300">\
+<img src="dogs2.jpg" height="200" width="300">\
+<img src="dogs3.jpg" height="200" width="300">\
+<img src="cats1.jpg" height="200" width="300">\
+<img src="dogs2.png" height="200" width="300">\
+<img src="dogs2.jpg" height="200" width="300">\
+<img src="dogs3.jpg" height="200" width="300">\
+</body>\
+</html>\
+EOF\
+\pard\pardeftab720\sl280\partightenfactor0
+\cf4 \cb5 \outl0\strokewidth0 \
+\
+\
+What to change in apache?  ( This is for Debian. Other disto commands might vary. So please check the appropriate documentation)\
+\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\'97\
+ \
+1) Enable the headers by running the following command in the shell\
+    
+\f1\fs26 \AppleTypeServices\AppleTypeServicesF65539 \cf6 \cb7 a2enmod headers\
+\
+2) Now edit the configuration file \
+       vi /etc/apache2/apache2.conf\
+   Now paste the following in the above file \
+       
+\f2\fs24 \AppleTypeServices \cf8 \cb1 LoadModule headers_module /usr/lib/apache2/modules/mod_headers.so\
+   And now save the file (:wq)\
+\
+3) Now edit the default config file to set the Cache-Control\
+vi 
+\f1\fs26 \AppleTypeServices\AppleTypeServicesF65539 \cf6 \cb7 /etc/apache2/sites-available/000-default.conf\
+     under \'91VirtualHost *:80\'92 add the following\
+       
+\f2\fs24 \AppleTypeServices \cf8 \cb1  <filesMatch ".(html|php|jpg|jpeg|png|gif)$">\
+          Header set Cache-Control "max-age=1600, public"\
+       </filesMatch>\
+\
+4) Now restart the apache server\
+   
+\f1\fs26 \AppleTypeServices\AppleTypeServicesF65539 \cf6 \cb7 systemctl restart apache2
+\f2\fs24 \AppleTypeServices \cf8 \cb1 \
+\
+\
+
+\f0 \cf4 \cb5 \
+\pard\tx566\tx1133\tx1700\tx2267\tx2834\tx3401\tx3968\tx4535\tx5102\tx5669\tx6236\tx6803\pardirnatural\partightenfactor0
+
+\f3 \cf0 \cb1 \kerning1\expnd0\expndtw0 \
+}
